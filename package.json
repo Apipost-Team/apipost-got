@@ -1,6 +1,6 @@
 {
 	"name": "apipost-got",
-	"version": "11.8.9",
+	"version": "11.8.7",
 	"description": "Human-friendly and powerful HTTP request library for Node.js",
 	"license": "MIT",
 	"repository": "Apipost-Team/apipost-got",
@@ -10,9 +10,10 @@
 		"node": ">=10.19.0"
 	},
 	"scripts": {
-		"test": "jest",
-		"libs": " rollup -c rollup.config.js",
-		"build": "npm version patch && rollup -c rollup.config.js && npm publish"
+		"test": "xo && npm run build && nyc --reporter=html --reporter=text ava",
+		"release": "np",
+		"build": "del-cli dist && tsc",
+		"prepare": "npm run build"
 	},
 	"files": [
 		"dist/source"
@@ -42,14 +43,6 @@
 		"ky"
 	],
 	"dependencies": {
-		"@rollup/plugin-node-resolve": "^13.3.0",
-		"rollup": "^2.74.1",
-		"rollup-plugin-commonjs": "^10.1.0",
-		"rollup-plugin-copy": "^3.4.0",
-		"rollup-plugin-dts": "^4.2.2",
-		"rollup-plugin-node-resolve": "^5.2.0",
-		"rollup-plugin-typescript": "^1.0.1",
-		"rollup-plugin-typescript2": "^0.31.2",
 		"@sindresorhus/is": "^4.0.0",
 		"@szmarczak/http-timer": "^4.0.5",
 		"@types/cacheable-request": "^6.0.1",
@@ -63,7 +56,6 @@
 		"responselike": "^2.0.0"
 	},
 	"devDependencies": {
-		"@types/jest": "^27.5.1",
 		"@ava/typescript": "^1.1.1",
 		"@sindresorhus/tsconfig": "^0.7.0",
 		"@sinonjs/fake-timers": "^6.0.1",
